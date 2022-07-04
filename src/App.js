@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import { 
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Outlet
+  } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function App() {
+
+  import Contacts from './components/AboutUs'
+  import AboutUs from './components/Contacts'
+  import Team from './components/Team'
+  import Error from './components/Error'
+
+
+function Dashboard () {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section><h1>Home page</h1> 
+      <Link to='/aboutUs' >About Us</Link>
+      <Link to='/contacts' >Contacts</Link>
+      <Link to='/team'>Team</Link>
+      <Outlet/>
+    </section>  
+  )
+}
+
+
+
+
+
+function Home() {
+  
+  return (
+    <Router>
+         <Routes>
+             <Route path="/" element={<Dashboard/>}>
+              <Route path="contacts" element={<Contacts/>}></Route>
+              <Route path="team/*" element={<Team/>}>
+                
+              </Route>
+              <Route path="aboutUs" element={<AboutUs/>}></Route>
+             </Route>
+             
+             <Route path="*" element={<Error/>} />
+         </Routes>
+    </Router>
+   
   );
 }
 
-export default App;
+export default Home;
